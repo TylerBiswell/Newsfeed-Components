@@ -86,7 +86,22 @@ const data = [
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
   },
+  {
+    title: 'A Random Blah Blah',
+    date: 'Aug 7th, 2019',
+    firstParagraph: `A born fake assures another setting shock. Our rage rolls below the downhill language. The incentive powers our abandon. Whatever graffito wishes this lifestyle against the galactic musician.`,
+    secondParagraph: `A relaxed tough punts. Beside a pointer bounces the confused mayor. The intimate confuses the power next to the national refrain. The cast analogy accommodates this ego under an unseen rectangle.`,
+    thirdParagraph: `The tragedy sacks the baffle before the attacking whoop. Does the snag proposition a cuddly class? The fork razors the directed leisure inside a wolf. The impressive zero suffers the promised fundamentalist.`,
+  },
+  {
+    title: 'Conflict is as Conflict does',
+    date: 'Nov 30th, 2019',
+    firstParagraph: `The union colors under the pretend bass. An anniversary kids throughout the infant. The stuck march pants over a summary kingdom. A widest advantage masks an offending tiger. A bathroom listens on top of the luck.`,
+    secondParagraph: `The substitute photograph monkeys the rarer monarch. The clash explodes after the backbone. The artistic forest smiles outside a garden. The presence dines without his freeze.`,
+    thirdParagraph: `A cobbler retracts. The flying abandon skips. The classic shouts underneath the icon! A chocolate rewards the gravitational leader. An angle purchases the foot.`,
+  },
 ];
+
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
@@ -138,9 +153,24 @@ function createArticle(dataObj) {
    //Set content
   title.textContent = dataObj.title;
   date.textContent = dataObj.date;
-  firstParagraph = dataObj.firstParagraph;
-  secondParagraph = dataObj.secondParagraph;
-  thirdParagraph = dataObj.thirdParagraph;
+  firstParagraph.textContent = dataObj.firstParagraph;
+  secondParagraph.textContent = dataObj.secondParagraph;
+  thirdParagraph.textContent = dataObj.thirdParagraph;
+  expand.textContent = 'Read';
+
+ // Toggle button
+ expand.addEventListener('click', () =>
+ article.classList.toggle('article-open'),
+);
+
+// article.style.height = 'auto';
+
 
   return article;
 }
+
+const articlesContainer = document.querySelector('.articles');
+
+ data.forEach(data => {
+  articlesContainer.appendChild(createArticle(data));
+});
