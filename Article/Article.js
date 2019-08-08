@@ -102,33 +102,24 @@ const data = [
   },
 ];
 
-
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
-
     {three separate paragraph elements}
-
     <span class='expandButton'></span>
   </div>
-
   Hint: You will need to use createElement more than once here!
-
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each peice of the data object above.
-
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
   Step 3: return the entire component.
-
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
-
 */
+
 function createArticle(dataObj) {
-  // define elements
+  // Define new elements
   const article = document.createElement('div');
   const title = document.createElement('h2');
   const date = document.createElement('p');
@@ -136,8 +127,10 @@ function createArticle(dataObj) {
   const secondParagraph = document.createElement('p');
   const thirdParagraph = document.createElement('p');
   const expand = document.createElement('span');
+  const close = document.createElement('div');
 
   // Set up structure of elements
+  article.appendChild(close);
   article.appendChild(title);
   article.appendChild(date);
   article.appendChild(firstParagraph);
@@ -145,32 +138,141 @@ function createArticle(dataObj) {
   article.appendChild(thirdParagraph);
   article.appendChild(expand);
 
-   // Set class names
-   article.classList.add('article');
-   date.classList.add('date');
-   expand.classList.add('expandButton');
+  // Set class names
+  article.classList.add('article');
+  date.classList.add('date');
+  expand.classList.add('expandButton');
+  close.classList.add('closeButton');
 
-   //Set content
+  //Set content
   title.textContent = dataObj.title;
   date.textContent = dataObj.date;
   firstParagraph.textContent = dataObj.firstParagraph;
   secondParagraph.textContent = dataObj.secondParagraph;
   thirdParagraph.textContent = dataObj.thirdParagraph;
-  expand.textContent = 'Read';
 
- // Toggle button
- expand.addEventListener('click', () =>
- article.classList.toggle('article-open'),
-);
+  // Toggle button
+  expand.textContent = 'Click to expand';
+  expand.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+    expand.textContent = article.classList.contains('article-open')
+      ? 'Click to close'
+      : 'Click to expand';
+    article.style.overflow = article.classList.contains('article-open')
+      ? 'auto'
+      : 'hidden';
+  });
 
-// article.style.height = 'auto';
-
+  // Close button
+  close.textContent = '\u2716';
+  close.style.marginTop = '0.6rem';
+  close.style.cssFloat = 'right';
+  close.style.cursor = 'pointer';
+  close.addEventListener('mouseenter', () => (close.style.opacity = '0.5'));
+  close.addEventListener('mouseleave', () => (close.style.opacity = '1'));
+  close.addEventListener('click', () => (article.style.display = 'none'));
 
   return article;
 }
 
 const articlesContainer = document.querySelector('.articles');
 
- data.forEach(data => {
+data.forEach(data => {
   articlesContainer.appendChild(createArticle(data));
+});
+
+function addArticle(title, date, paragraph) {
+  const articleObj = {
+    title: title,
+    date: date,
+    firstParagraph: paragraph,
+  };
+  articlesContainer.appendChild(createArticle(articleObj));
+}
+
+// addArticle('testTitle', 'testDate', 'testParagraph');
+
+function formConstructor() {
+  const formContainer = document.createElement('div');
+  formContainer.style.margin = '20px 10%';
+  formContainer.style.display = 'flex';
+  formContainer.style.flexDirection = 'column';
+  formContainer.style.alignItems = 'center';
+
+  const formHeader = document.createElement('h2');
+  formHeader.style.fontSize = '28px';
+
+  const form = document.createElement('form');
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.width = '85%';
+
+  const inputTitle = document.createElement('input');
+  inputTitle.type = 'text';
+  inputTitle.name = 'inputTitle';
+  inputTitle.id = 'inputTitle';
+  inputTitle.style.marginBottom = '15px';
+
+  const inputDate = document.createElement('input');
+  inputDate.type = 'date';
+  inputDate.name = 'inputDate';
+  inputDate.id = 'inputDate';
+  inputDate.style.marginBottom = '15px';
+
+  const inputContent = document.createElement('textarea');
+  inputContent.name = 'inputContent';
+  inputContent.id = 'inputContent';
+  inputContent.style.marginBottom = '15px';
+  inputContent.style.height = '150px';
+
+  const submit = document.createElement('input');
+  submit.type = 'submit';
+  submit.value = 'Submit Article';
+  submit.name = 'submit';
+  submit.id = 'submit';
+  submit.style.width = '20%';
+  submit.style.alignSelf = 'center';
+  submit.style.border = 'none';
+  submit.style.padding = '8px';
+  submit.style.borderRadius = '5px';
+  submit.style.backgroundColor = '#388E3C';
+  submit.style.color = '#ffffff';
+
+  formHeader.textContent = 'Add your own article here:';
+
+  formContainer.append(formHeader);
+  formContainer.append(form);
+  form.append('Article Title: ');
+  form.append(inputTitle);
+  form.append('Date: ');
+  form.append(inputDate);
+  form.append('Article Content: ');
+  form.append(inputContent);
+  form.append(submit);
+
+  const body = document.querySelector('body');
+  body.append(formContainer);
+}
+
+formConstructor();
+
+function submitForm() {
+  const formObj = {};
+
+  formObj.title = document.querySelector('#inputTitle').value;
+  formObj.date = document.querySelector('#inputDate').value;
+  formObj.firstParagraph = document.querySelector('#inputContent').value;
+
+  console.log(formObj);
+
+  articlesContainer.appendChild(createArticle(formObj));
+}
+
+const submit = document.querySelector('#submit');
+submit.addEventListener('click', event => {
+  event.preventDefault();
+  submitForm();
+  document.querySelector('#inputTitle').value = '';
+  document.querySelector('#inputDate').value = '';
+  document.querySelector('#inputContent').value = '';
 });

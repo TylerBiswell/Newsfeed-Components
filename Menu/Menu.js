@@ -52,7 +52,19 @@ function createMenu(array) {
 
   const menuBtn = document.querySelector('.menu-button');
 
-  menuBtn.addEventListener('click', () => menu.classList.toggle('menu--open'));
+  // menuBtn.addEventListener('click', () => menu.classList.toggle('menu--open'));
+
+   // menuBtn.addEventListener('click', () =>
+  //   TweenMax.to(menu, 2, { ease: Circ.easeOut, x: 350 }),
+  // );
+
+  window.addEventListener('click', event => {
+    if (event.target.matches('.menu-button')) {
+      TweenMax.to(menu, 2, { ease: Circ.easeOut, x: 350 });
+    } else if (!event.target.matches('.menu')) {
+      TweenMax.to(menu, 2, { ease: Circ.easeOut, x: 0 });
+    }
+  });
 
   return menu;
 }
