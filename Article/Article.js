@@ -20,7 +20,7 @@ const data = [
     thirdParagraph: `Dagobah hutt jawa leia calamari ventress skywalker yoda. Binks wicket hutt coruscant sidious
         naboo ackbar tatooine. Hutt lars padmé darth. Maul solo darth darth jabba qui-gon chewbacca darth maul. Moff baba wicket
         han. C-3po antilles moff qui-gon ahsoka aayla dooku amidala. Palpatine droid amidala droid k-3po twi'lek padmé wookiee. Leia
-        moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`
+        moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`,
   },
   {
     title: 'Javascript and You, ES6',
@@ -40,7 +40,7 @@ const data = [
     thirdParagraph: `Toad-like smile Flourish and Blotts he knew I’d come back Quidditch World Cup. Fat Lady baubles banana fritters fairy lights 
         Petrificus Totalus. So thirsty, deluminator firs’ years follow me 12 inches of parchment. Head Boy start-of-term banquet Cleansweep Seven 
         roaring lion hat. Unicorn blood crossbow mars is bright tonight, feast Norwegian Ridgeback. Come seek us where our voices sound, we cannot 
-        sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`
+        sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`,
   },
   {
     title: 'React vs Angular vs Vue',
@@ -68,7 +68,7 @@ const data = [
 
     thirdParagraph: `Gotta catch 'em all Horsea gym Ninjask Absol Sinnoh Poliwag. Gotta catch 'em all Youngster wants to fight Soda Pop Floatzel 
         Leech Life Seismitoad Ariados. Earthquake Pokemon Glitch City Tail Whip Skitty Ekans Dialga. Ut aliquip ex ea commodo consequat James 
-        Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
+        Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`,
   },
   {
     title: 'Professional Software Development in 2019',
@@ -84,8 +84,22 @@ const data = [
 
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
-          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
+  },
+  {
+    title: 'A Random Blah Blah',
+    date: 'Aug 7th, 2019',
+    firstParagraph: `A born fake assures another setting shock. Our rage rolls below the downhill language. The incentive powers our abandon. Whatever graffito wishes this lifestyle against the galactic musician.`,
+    secondParagraph: `A relaxed tough punts. Beside a pointer bounces the confused mayor. The intimate confuses the power next to the national refrain. The cast analogy accommodates this ego under an unseen rectangle.`,
+    thirdParagraph: `The tragedy sacks the baffle before the attacking whoop. Does the snag proposition a cuddly class? The fork razors the directed leisure inside a wolf. The impressive zero suffers the promised fundamentalist.`,
+  },
+  {
+    title: 'Conflict is as Conflict does',
+    date: 'Nov 30th, 2019',
+    firstParagraph: `The union colors under the pretend bass. An anniversary kids throughout the infant. The stuck march pants over a summary kingdom. A widest advantage masks an offending tiger. A bathroom listens on top of the luck.`,
+    secondParagraph: `The substitute photograph monkeys the rarer monarch. The clash explodes after the backbone. The artistic forest smiles outside a garden. The presence dines without his freeze.`,
+    thirdParagraph: `A cobbler retracts. The flying abandon skips. The classic shouts underneath the icon! A chocolate rewards the gravitational leader. An angle purchases the foot.`,
+  },
 ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
@@ -93,22 +107,172 @@ const data = [
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
-
     {three separate paragraph elements}
-
     <span class='expandButton'></span>
   </div>
-
   Hint: You will need to use createElement more than once here!
-
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each peice of the data object above.
-
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
   Step 3: return the entire component.
-
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
-
 */
+
+function createArticle(dataObj) {
+  // Define new elements
+  const article = document.createElement('div');
+  const title = document.createElement('h2');
+  const date = document.createElement('p');
+  const firstParagraph = document.createElement('p');
+  const secondParagraph = document.createElement('p');
+  const thirdParagraph = document.createElement('p');
+  const expand = document.createElement('span');
+  const close = document.createElement('div');
+
+  // Set up structure of elements
+  article.appendChild(close);
+  article.appendChild(title);
+  article.appendChild(date);
+  article.appendChild(firstParagraph);
+  article.appendChild(secondParagraph);
+  article.appendChild(thirdParagraph);
+  article.appendChild(expand);
+
+  // Set class names
+  article.classList.add('article');
+  date.classList.add('date');
+  expand.classList.add('expandButton');
+  close.classList.add('closeButton');
+
+  //Set content
+  title.textContent = dataObj.title;
+  date.textContent = dataObj.date;
+  firstParagraph.textContent = dataObj.firstParagraph;
+  secondParagraph.textContent = dataObj.secondParagraph;
+  thirdParagraph.textContent = dataObj.thirdParagraph;
+
+  // Toggle button
+  expand.textContent = 'Click to expand';
+  expand.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+    expand.textContent = article.classList.contains('article-open')
+      ? 'Click to close'
+      : 'Click to expand';
+    article.style.overflow = article.classList.contains('article-open')
+      ? 'auto'
+      : 'hidden';
+  });
+
+  // Close button
+  close.textContent = '\u2716';
+  close.style.marginTop = '0.6rem';
+  close.style.cssFloat = 'right';
+  close.style.cursor = 'pointer';
+  close.addEventListener('mouseenter', () => (close.style.opacity = '0.5'));
+  close.addEventListener('mouseleave', () => (close.style.opacity = '1'));
+  close.addEventListener('click', () => (article.style.display = 'none'));
+
+  return article;
+}
+
+const articlesContainer = document.querySelector('.articles');
+
+data.forEach(data => {
+  articlesContainer.appendChild(createArticle(data));
+});
+
+function addArticle(title, date, paragraph) {
+  const articleObj = {
+    title: title,
+    date: date,
+    firstParagraph: paragraph,
+  };
+  articlesContainer.appendChild(createArticle(articleObj));
+}
+
+// addArticle('testTitle', 'testDate', 'testParagraph');
+
+function formConstructor() {
+  const formContainer = document.createElement('div');
+  formContainer.style.margin = '20px 10%';
+  formContainer.style.display = 'flex';
+  formContainer.style.flexDirection = 'column';
+  formContainer.style.alignItems = 'center';
+
+  const formHeader = document.createElement('h2');
+  formHeader.style.fontSize = '28px';
+
+  const form = document.createElement('form');
+  form.style.display = 'flex';
+  form.style.flexDirection = 'column';
+  form.style.width = '85%';
+
+  const inputTitle = document.createElement('input');
+  inputTitle.type = 'text';
+  inputTitle.name = 'inputTitle';
+  inputTitle.id = 'inputTitle';
+  inputTitle.style.marginBottom = '15px';
+
+  const inputDate = document.createElement('input');
+  inputDate.type = 'date';
+  inputDate.name = 'inputDate';
+  inputDate.id = 'inputDate';
+  inputDate.style.marginBottom = '15px';
+
+  const inputContent = document.createElement('textarea');
+  inputContent.name = 'inputContent';
+  inputContent.id = 'inputContent';
+  inputContent.style.marginBottom = '15px';
+  inputContent.style.height = '150px';
+
+  const submit = document.createElement('input');
+  submit.type = 'submit';
+  submit.value = 'Submit Article';
+  submit.name = 'submit';
+  submit.id = 'submit';
+  submit.style.width = '20%';
+  submit.style.alignSelf = 'center';
+  submit.style.border = 'none';
+  submit.style.padding = '8px';
+  submit.style.borderRadius = '5px';
+  submit.style.backgroundColor = '#388E3C';
+  submit.style.color = '#ffffff';
+
+  formHeader.textContent = 'Add your own article here:';
+
+  formContainer.append(formHeader);
+  formContainer.append(form);
+  form.append('Article Title: ');
+  form.append(inputTitle);
+  form.append('Date: ');
+  form.append(inputDate);
+  form.append('Article Content: ');
+  form.append(inputContent);
+  form.append(submit);
+
+  const body = document.querySelector('body');
+  body.append(formContainer);
+}
+
+formConstructor();
+
+function submitForm() {
+  const formObj = {};
+
+  formObj.title = document.querySelector('#inputTitle').value;
+  formObj.date = document.querySelector('#inputDate').value;
+  formObj.firstParagraph = document.querySelector('#inputContent').value;
+
+  console.log(formObj);
+
+  articlesContainer.appendChild(createArticle(formObj));
+}
+
+const submit = document.querySelector('#submit');
+submit.addEventListener('click', event => {
+  event.preventDefault();
+  submitForm();
+  document.querySelector('#inputTitle').value = '';
+  document.querySelector('#inputDate').value = '';
+  document.querySelector('#inputContent').value = '';
+});
